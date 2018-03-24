@@ -1,0 +1,61 @@
+<div class="Container">
+  <h3>Angular 2 Form</h3>
+  <form #form='ngForm' novalidate>
+    <div class="form-group" [class.has-error] = "firstName.invalid && firstName.touched" [class.has-success]= "firstName.valid && firstName.touched">
+      <label class="control-label">First Name</label>
+      <input #firstName="ngModel" pattern="...+" type="text" required class="form-control" name="firstName" [(ngModel)]="employee.firstName">
+      <div class="alert alert-danger" role="alert" *ngIf="firstName.invalid && firstName.touched">
+        First Name is required and must be at least 3 characters
+      </div>
+    </div>
+    <div class="form-group" [class.has-error] = "lastName.invalid && lastName.touched" [class.has-success]= "lastName.valid && lastName.touched">
+        <label class="control-label">Last Name</label>
+        <input #lastName="ngModel" pattern="...+" type="text" required class="form-control" name="lastName" [(ngModel)]="employee.lastName">
+        <div class="alert alert-danger" role="alert" *ngIf="lastName.invalid && lastName.touched">
+            Last Name is required and must be at least 3 characters
+        </div>
+      </div>
+    <!-- <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" class="form-control" name="lastName" [(ngModel)]="employee.lastName">
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input type="checkbox" name="isFullTime" [(ngModel)]="employee.isFullTime"> Full Time Employee
+        </div>
+      </div>
+    </div>
+    <br>
+    <label>Payment Type</label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <label>
+            <input type="radio" name="payType" value="w2"  [(ngModel)]="employee.payType" checked> W2</label>
+        </div>
+        <div class="input-group-text">
+          <label>
+            <input type="radio" name="payType" value="1099"  [(ngModel)]="employee.payType"> 1099</label>
+        </div>
+      </div>
+    </div>-->
+    <div class="form-group"  [class.has-error] = "hasErrorPrimaryLanguage">
+        <label class="control-label">Primary Language</label>
+        <select class="form-control" #primaryLanguage ="ngModel" name = "primaryLanguage"
+        (blur)="validatePrimaryLanguage(primaryLanguage.value)"
+        (change)="validatePrimaryLanguage(primaryLanguage.value)"
+         [(ngModel)]="employee.primaryLanguage" >
+          <option value="default">Select Language...</option>
+            <option *ngFor="let lang of languages">
+                {{lang}}
+            </option>
+        </select>
+      </div>
+    <br> 
+    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Submit</button>
+  </form>
+</div>
+Employee model : {{employee | json}}
+<br>
+Angular Form: {{form.value | json}}
